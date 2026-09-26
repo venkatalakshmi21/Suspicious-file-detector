@@ -1,0 +1,4 @@
+This is a harmless test file for the Suspicious File Detector.
+
+Day 1 test:
+The program should read this file, display its metadata, and calculate its SHA-256 hash.
