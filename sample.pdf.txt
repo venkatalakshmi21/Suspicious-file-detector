@@ -1,0 +1,2 @@
+This is intentionally a TEXT file with a misleading filename.
+It is NOT a real PDF and is completely harmless.
