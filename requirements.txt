@@ -1,2 +1,1 @@
-# Day 1 uses only Python standard-library modules.
-# No external packages are required.
+# Day 2 uses only Python standard-library modules.\n# No external packages are required.\n
