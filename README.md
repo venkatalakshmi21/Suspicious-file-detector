@@ -1,52 +1,28 @@
-# Suspicious File Detector — Day 1
-
-## Purpose
-Day 1 builds the foundation of the Suspicious File Detector. It focuses on basic static file analysis: collecting file metadata and generating a SHA-256 hash without executing the selected file.
+# Suspicious File Detector — Day 2
 
 ## Features
-- Reads a file path supplied by the user
-- Displays file name and absolute path
-- Displays file extension
-- Displays file size in bytes and KB
-- Generates a SHA-256 hash
-- Does not execute the selected file
-- Handles common file/path errors
+1. File metadata collection
+2. File extension analysis
+3. SHA-256 hashing
 
-## Project Structure
-```text
-suspicious_file_detector/
-├── app.py
-├── scanner/
-│   ├── __init__.py
-│   └── basic_scanner.py
-├── samples/
-│   └── sample.txt
-├── tests/
-│   └── test_basic_scanner.py
-├── requirements.txt
-├── .gitignore
-└── README.md
-```
+The program displays the file name, absolute path, extension, size, modified time, extension category/indicator, and SHA-256 hash.
 
-## Requirements
-Python 3.10+ is recommended. Day 1 uses only Python standard-library modules, so no external package is required.
+Extension indicators are clues only. An `.exe` file is not automatically malware.
 
 ## Run
-From the project folder:
-
 ```bash
 python app.py
 ```
 
-Enter the path of a harmless test file when prompted.
-
-Example:
+Use a harmless test file such as:
 ```text
 samples/sample.txt
 ```
 
-## Important Safety Note
-This version performs static analysis only. Do not execute or open unknown/suspicious files just to test the project. Use harmless sample files that you created yourself.
+## Run tests
+```bash
+python -m unittest discover -s tests -v
+```
 
-## Day 1 Scope
-This version intentionally does NOT decide whether a file is malware. It only collects basic evidence. Later versions can add extension analysis, double-extension detection, file-signature checks, suspicious indicators, risk scoring, and a user interface.
+## Safety
+Use only harmless files you created yourself for testing. Do not execute unknown or suspicious files.
