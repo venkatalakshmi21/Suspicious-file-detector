@@ -1,4 +1,3 @@
-This is a harmless test file for the Suspicious File Detector.
-
-Day 1 test:
-The program should read this file, display its metadata, and calculate its SHA-256 hash.
+This is a harmless Day 3 text file.
+It is used to test metadata, extension analysis, double-extension checking,
+signature detection, suspicious indicators, and SHA-256 hashing.
