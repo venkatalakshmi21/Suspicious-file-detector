@@ -1,0 +1,2 @@
+This is a harmless TEXT file whose filename contains multiple extension-like parts.
+It is intentionally NOT an executable and exists only to demonstrate filename analysis.
