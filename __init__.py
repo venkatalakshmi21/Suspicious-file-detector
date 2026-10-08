@@ -1,1 +1,1 @@
-# Scanner package for the Suspicious File Detector.\n
+# Scanner package for the Suspicious File Detector.
