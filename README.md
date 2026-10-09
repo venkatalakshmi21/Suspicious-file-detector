@@ -1,28 +1,37 @@
-# Suspicious File Detector — Day 2
+# Suspicious File Detector — Day 3
 
 ## Features
-1. File metadata collection
-2. File extension analysis
-3. SHA-256 hashing
+- File metadata
+- Extension analysis
+- SHA-256 hashing
+- Double-extension detection
+- File-signature (magic-number) analysis
+- Suspicious-indicator reporting
 
-The program displays the file name, absolute path, extension, size, modified time, extension category/indicator, and SHA-256 hash.
+### Double Extension
+Examples such as `invoice.pdf.exe` can be flagged as suspicious. This is only a clue, not proof of malware.
 
-Extension indicators are clues only. An `.exe` file is not automatically malware.
+### Signature Analysis
+The scanner reads only the first few bytes and checks common signatures: PDF, PNG, JPEG, GIF, ZIP, and Windows PE/executable family. It never executes the file.
 
-## Run
+### Mismatch
+If a filename says `.jpg` but the file begins with a PDF signature, the result is `MISMATCH`.
+
+### Run
 ```bash
 python app.py
 ```
-
-Use a harmless test file such as:
+Safe test files:
 ```text
 samples/sample.txt
+samples/invoice.pdf.exe.txt
+samples/mismatch.jpg
 ```
 
-## Run tests
+### Tests
 ```bash
 python -m unittest discover -s tests -v
 ```
 
 ## Safety
-Use only harmless files you created yourself for testing. Do not execute unknown or suspicious files.
+Use harmless files created by you for testing. Do not execute unknown or suspicious files. Indicators are not a malware verdict.
