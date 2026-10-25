@@ -1,49 +1,37 @@
+"""Day 4 demo: explainable risk scoring for a selected file."""
+from pathlib import Path
 from scanner.file_analyzer import analyze_file
+from scanner.risk_scorer import score_file
 
-def main():
-    print("=" * 70)
-    print("          SUSPICIOUS FILE DETECTOR - DAY 3")
-    print("=" * 70)
-    print("Features: metadata + extension + SHA-256 +")
-    print("double-extension detection + signature analysis + indicators\n")
-    file_path = input("Enter the path of a harmless test file: ").strip()
-    if not file_path:
-        print("No file path was entered."); return
+
+def main() -> None:
+    print("=" * 58)
+    print(" SUSPICIOUS FILE DETECTOR — DAY 4 RISK SCORING")
+    print("=" * 58)
+    raw_path = input("Enter the path of a file to analyze: ").strip().strip('"')
+    path = Path(raw_path).expanduser()
     try:
-        result = analyze_file(file_path)
-        print("\n" + "-" * 70)
-        print("FILE ANALYSIS RESULT")
-        print("-" * 70)
-        print("\n[FILE METADATA]")
-        print(f"File Name       : {result['file_name']}")
-        print(f"Absolute Path   : {result['absolute_path']}")
-        print(f"Extension       : {result['extension'] or '[none]'}")
-        print(f"Size            : {result['size_bytes']} bytes")
-        print(f"Size            : {result['size_kb']:.2f} KB")
-        print(f"Modified        : {result['modified_time']}")
-        print("\n[EXTENSION ANALYSIS]")
-        print(f"Category        : {result['extension_category']}")
-        print(f"Extension Note  : {result['extension_indicator']}")
-        print("\n[DOUBLE-EXTENSION CHECK]")
-        print(f"Detected        : {'YES' if result['double_extension'] else 'NO'}")
-        if result['double_extension']:
-            print(f"Possible extensions: {', '.join(result['detected_extensions'])}")
-        print("\n[FILE SIGNATURE ANALYSIS]")
-        print(f"Detected Type   : {result['signature_type']}")
-        print(f"Signature Match : {result['signature_match']}")
-        print("\n[SUSPICIOUS INDICATORS]")
-        if result['indicators']:
-            for indicator in result['indicators']: print(f"⚠ {indicator}")
-        else: print("✓ No Day 3 indicators detected.")
-        print("\n[SHA-256]")
-        print(result['sha256'])
-        print("\n" + "-" * 70)
-        print("Day 3 analysis completed.")
-        print("IMPORTANT: Indicators are clues, not proof of malware.")
-        print("-" * 70)
-    except FileNotFoundError: print("Error: File not found. Check the path and try again.")
-    except PermissionError: print("Error: Permission denied while reading the file.")
-    except IsADirectoryError: print("Error: You entered a directory, not a file.")
-    except OSError as exc: print(f"Error while analyzing the file: {exc}")
+        analysis = analyze_file(path)
+        result = score_file(analysis)
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        print(f"Could not analyze this file: {exc}")
+        return
 
-if __name__ == "__main__": main()
+    print(f"\nFile: {analysis['file_name']}")
+    print(f"SHA-256: {analysis['sha256']}")
+    print("\n--- RISK RESULT ---")
+    print(f"Score: {result['risk_score']}/100")
+    print(f"Level: {result['risk_level']}")
+    print(result['summary'])
+    print("\n--- WHY THIS SCORE? ---")
+    if result['reasons']:
+        for item in result['reasons']:
+            print(f"+{item['points']} points — {item['explanation']}")
+    else:
+        print("No configured warning indicators were triggered.")
+    print("\nNote: This is a basic educational heuristic, not an antivirus verdict.")
+    print("Do not open or execute a suspicious file just to test it.")
+
+
+if __name__ == "__main__":
+    main()
