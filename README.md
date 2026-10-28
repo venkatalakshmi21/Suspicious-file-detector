@@ -1,37 +1,26 @@
-# Suspicious File Detector — Day 3
+# Suspicious File Detector — Day 4
 
-## Features
-- File metadata
-- Extension analysis
-- SHA-256 hashing
-- Double-extension detection
-- File-signature (magic-number) analysis
-- Suspicious-indicator reporting
+A beginner-friendly Python cybersecurity mini-project that performs static file checks and explains a simple risk score.
 
-### Double Extension
-Examples such as `invoice.pdf.exe` can be flagged as suspicious. This is only a clue, not proof of malware.
+## Day 4 features
+- Uses Day 3 metadata, SHA-256, extension, double-extension, and signature checks.
+- Applies a transparent rule-based score from 0 to 100.
+- Labels results LOW, MEDIUM, or HIGH.
+- Explains every triggered rule in plain language.
+- Includes unit tests; uses Python standard library only.
 
-### Signature Analysis
-The scanner reads only the first few bytes and checks common signatures: PDF, PNG, JPEG, GIF, ZIP, and Windows PE/executable family. It never executes the file.
+## Setup and run
+Python 3.10+ recommended. No extra packages are required.
 
-### Mismatch
-If a filename says `.jpg` but the file begins with a PDF signature, the result is `MISMATCH`.
-
-### Run
 ```bash
 python app.py
 ```
-Safe test files:
-```text
-samples/sample.txt
-samples/invoice.pdf.exe.txt
-samples/mismatch.jpg
-```
+Enter a sample path such as `samples/mismatch.jpg` when prompted.
 
-### Tests
+Run tests:
 ```bash
 python -m unittest discover -s tests -v
 ```
 
-## Safety
-Use harmless files created by you for testing. Do not execute unknown or suspicious files. Indicators are not a malware verdict.
+## Important limitation
+The risk score is a teaching heuristic, not a malware probability or antivirus verdict. A low score does not prove a file is safe; a high score does not prove it is malware. Do not execute suspicious files.
