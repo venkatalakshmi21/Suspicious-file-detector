@@ -1,2 +1,1 @@
-# Day 3 uses only Python standard-library modules.
-# No external packages are required.
+# No third-party packages required. Uses Python standard library only.
