@@ -1,26 +1,29 @@
-# Suspicious File Detector — Day 4
+# Suspicious File Detector — Day 5
 
-A beginner-friendly Python cybersecurity mini-project that performs static file checks and explains a simple risk score.
+Day 5 adds a graphical user interface (GUI) and results dashboard using Python's built-in Tkinter library. It reuses the Day 3 static file analyzer and Day 4 explainable risk scorer.
 
-## Day 4 features
-- Uses Day 3 metadata, SHA-256, extension, double-extension, and signature checks.
-- Applies a transparent rule-based score from 0 to 100.
-- Labels results LOW, MEDIUM, or HIGH.
-- Explains every triggered rule in plain language.
-- Includes unit tests; uses Python standard library only.
+## Features
+- Browse for a file and click **Scan File**.
+- Risk score out of 100 and LOW / MEDIUM / HIGH label.
+- Dashboard with file metadata, extension category, detected signature, signature match status, modified time, and SHA-256.
+- Explainable list of the warning indicators and points that contributed to the score.
+- Uses only Python standard-library modules; no `pip install` required.
 
-## Setup and run
-Python 3.10+ recommended. No extra packages are required.
+## Run
+1. Extract this ZIP.
+2. Open the `Suspicious_File_Detector_Day5` folder in VS Code.
+3. Open a terminal in that folder and run:
 
 ```bash
 python app.py
 ```
-Enter a sample path such as `samples/mismatch.jpg` when prompted.
 
-Run tests:
+On some Linux installations Tkinter may need to be installed by the operating system package manager. On most standard Windows Python installations, Tkinter is included.
+
+## Test
 ```bash
 python -m unittest discover -s tests -v
 ```
 
-## Important limitation
-The risk score is a teaching heuristic, not a malware probability or antivirus verdict. A low score does not prove a file is safe; a high score does not prove it is malware. Do not execute suspicious files.
+## Safety and limitations
+This is a beginner educational static-analysis project, not a professional antivirus. The risk score is a simple heuristic, not a probability that a file is malicious. A LOW score does not prove safety. Do not open or execute suspicious files to test them.
